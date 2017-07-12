@@ -5,13 +5,25 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: 'converter',
     data () {
-
+    },
+    created: function () {
+      this.getRates();
     },
     methods: {
-
+      getRates: function () {
+        axios.get('http://api.nbp.pl/api/exchangerates/tables/a/')
+          .then(function (response) {
+            console.log(response.data[0].no)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
     },
     computed: {
 
