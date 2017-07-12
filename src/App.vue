@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <Converter></Converter>
   </div>
 </template>
 
 <script>
+import Converter from './components/converter'
 
 export default {
   name: 'app',
   components: {
+    Converter
   }
 }
 </script>
