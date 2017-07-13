@@ -1,19 +1,24 @@
 <template>
   <div class="converter">
     <h2>Vue.js currency converter</h2>
-    <input id="given" type="text" v-model="givenAmount"> PLN
+    <input id="given" type="text" v-model="givenAmount" placeholder="Amount to convert..."> PLN
+    <div>
     <multiselect v-model="value" :options="rates" :custom-label="codeWithCurr" placeholder="Select one" label="name" ></multiselect>
-    <h3>{{converted}}</h3>
+    </div>
+    <h2>{{converted}}</h2>
+    <p>according to NBP table no. {{table}} [{{date}}]</p>
   </div>
 </template>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
   .multiselect{
+    display:inline-block;
     width: 20%;
-    text-align: center !important;
   }
   #given{
+    margin-bottom: 20px;
+    padding-left: 10px;
     font-family: inherit;
     font-size: 14px;
     height: 35px;
@@ -36,6 +41,8 @@
         rates: [],
         givenAmount: '',
         value: { code: '', currency: '', mid: '' },
+        table: '',
+        date: ''
       }
     },
     created: function () {
@@ -46,8 +53,11 @@
         var vm = this;
         axios.get('http://api.nbp.pl/api/exchangerates/tables/a/')
           .then(function (response) {
-            vm.rates = response.data[0].rates
-            console.log(response.data[0].rates)
+            var info = response.data[0]
+            vm.rates = info.rates
+            vm.table = info.no
+            vm.date = info.effectiveDate
+            console.log(response)
           })
           .catch(function (error) {
             console.log(error)
@@ -63,7 +73,13 @@
     },
     computed: {
       converted: function () {
-        return this.givenAmount * this.value.mid + " " + this.value.code
+        var result = (this.givenAmount * this.value.mid).toFixed(2) + " " + this.value.code;
+        var re = new RegExp("^NaN");
+        if (re.test(result)) {
+          return "You give wrong amount.";
+        } else {
+          return result;
+        }
       }
     }
   }
