@@ -1,6 +1,6 @@
 # currency-converter
 
-> Currency converter
+> Easy convertion of PLN to other currencies with actual rates from NBP.
 
 ## Build Setup
 
