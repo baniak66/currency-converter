@@ -2,6 +2,9 @@
 
 > Easy convertion of PLN to other currencies with actual rates from NBP.
 
+[Try it!](https://fierce-reef-52152.herokuapp.com/)
+====================================================================================================
+
 ## Build Setup
 
 ``` bash

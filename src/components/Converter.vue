@@ -51,7 +51,7 @@
     methods: {
       getRates: function () {
         var vm = this;
-        axios.get('http://api.nbp.pl/api/exchangerates/tables/a/')
+        axios.get('https://api.nbp.pl/api/exchangerates/tables/a/')
           .then(function (response) {
             var info = response.data[0]
             vm.rates = info.rates
