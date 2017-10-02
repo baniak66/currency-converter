@@ -73,12 +73,11 @@
     },
     computed: {
       converted: function () {
-        var result = (this.givenAmount * this.value.mid).toFixed(2) + " " + this.value.code;
-        var re = new RegExp("^NaN");
-        if (re.test(result)) {
-          return "You give wrong amount.";
+        var result = (this.givenAmount / this.value.mid).toFixed(2) + " " + this.value.code;
+        if (result.match(/^\d/)) {
+          return result
         } else {
-          return result;
+          return "Type amount and set the currency..."
         }
       }
     }
